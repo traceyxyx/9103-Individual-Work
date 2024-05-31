@@ -48,12 +48,12 @@ let gg = '#D8D6C7';
 
 let song;
 let fft;
-let numBins = 64;
+let numBins = 128;
 let smoothing = 0.8;
 let isButtonPressed = false;
 
 // 颜色数组，可以根据需要添加更多颜色
-let colors = ['#FFFFFF', '#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530','#401019','#0388A6', '#D99962', '#04ADBF' ];
+let colors =['#0388A6','#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530','#401019','#D99962', '#04ADBF' ];
 
 
 // 存储每行和每列的颜色数组
@@ -275,7 +275,6 @@ function drawOriginal() {
     [ww, ww, gg, ww, dd, ww, dd]);
 
 
-
   // Display all the big rectangles by iterating over the array and resizing them
   bigRectangles.forEach(rectangle => {
     rectangle.resize(canvasSize);
@@ -314,9 +313,36 @@ function drawWithAudioEffects() {
     let x = i * barWidth;
     let y = height / 2 + sin(frameCount * 0.02 * i) * amplitude;
 
+     // 计算方块的新位置
+     let x2 = width / 2 + cos(frameCount * 0.02 * i) * amplitude;
+     let y2 = i * barHeight;
+
+    let x3 = i * barWidth;
+    let y3 = height / 2 + cos(frameCount * 0.02 * i) * amplitude;
+
     // 绘制方块
     fill(color);
-    rect(x, y, barWidth, barHeight);
+    
+    rect(x, y+100, barWidth, barHeight);
+    rect(x, y+200, barWidth, barHeight);
+
+    rect(x, y+400, barWidth, barHeight);
+
+    rect(x, y-100, barWidth, barHeight);
+    rect(x, y-200, barWidth, barHeight);
+    
+
+    rect(x2, y2, barWidth, barHeight);
+    rect(x2+40, y2, barWidth, barHeight);
+    rect(x2+200, y2, barWidth, barHeight);
+    rect(x2+250, y2, barWidth, barHeight);
+    rect(x2+300, y2, barWidth, barHeight);
+    rect(x2+350, y2, barWidth, barHeight);
+    
+    rect(x3, y3, barWidth, barHeight);
+    rect(x3, y3+300, barWidth, barHeight);
+    rect(x3, y3-350, barWidth, barHeight);
+    
   }
 
  
@@ -352,9 +378,8 @@ function drawColumn(x, y, w, h, colors) {
   
     
   if (isButtonPressed) {
-    // 如果按钮被按下，实现动态效果
-    
-
+   
+  
     // 根据音频频谱数据调整 bigRectangles 的大小和颜色
     let spectrum = fft.analyze();
 
@@ -372,7 +397,7 @@ function drawColumn(x, y, w, h, colors) {
       }
 
       // 使用 lerpColor 实现颜色的平滑过渡
-      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.1);
+      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.3);
 
       // 更新矩形的大小
       let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // 根据频谱值调整缩放比例
@@ -380,8 +405,8 @@ function drawColumn(x, y, w, h, colors) {
       rectangle.height = rectangle.baseHeight * dynamicScale * canvasSize;
 
       // 确保矩形大小不超过画布大小
-      rectangle.width = min(rectangle.width, canvasSize * 0.9);
-      rectangle.height = min(rectangle.height, canvasSize * 0.9);
+      rectangle.width = min(rectangle.width, canvasSize * 0.5);
+      rectangle.height = min(rectangle.height, canvasSize * 0.5);
 
    
     });

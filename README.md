@@ -9,6 +9,7 @@ This is an audio-based animated work. The interaction is simple, just click on t
 
 You will see deconstructed lines move according to the music spectrum in a form of waves. The shapes will cross and separate, creating a vivid scene. The bigger parts will also change sizes and colours according to the music.
 
+There is another music clip *(IT'S BOOGIE WOOGIE)* in the assests folder for an alternative choice. You can see more intensive effects.
 
 ## Deatils of my approach
 
@@ -83,6 +84,11 @@ function togglePlaying() {
     }
   }
   ```
+
+## Resoucrce References
+Sound clips:
+Meditation Guitar: https://freesound.org/people/Geoff-Bremner-Audio/sounds/709174/
+Boogie Woogie: https://freesound.org/people/Prime45/sounds/489851/
 
 
 ## Thank you for reading!

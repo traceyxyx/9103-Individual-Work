@@ -1,15 +1,15 @@
 // Define a class named BigRectangle for creating and displaying large rectangles
 class BigRectangle {
   constructor(x, y, width, height, color) {
-    this.x = x;      // The x-coordinate of the rectangle
-    this.y = y;      // The y-coordinate of the rectangle
-    this.width = width;  // The width of the rectangle
-    this.height = height; // The height of the rectangle
-    this.color = color;  // The color of the rectangle
-    this.baseX = x;     // Base x-coordinate for resizing
-    this.baseY = y;     // Base y-coordinate for resizing
-    this.baseWidth = width; // Base width for resizing
-    this.baseHeight = height; // Base height for resizing
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.baseX = x;
+    this.baseY = y;
+    this.baseWidth = width;
+    this.baseHeight = height;
   }
 
   // Method to resize the rectangle based on the new canvas size
@@ -22,13 +22,17 @@ class BigRectangle {
 
   // Method to display the rectangle
   display() {
-    fill(this.color);  // Set the fill color for the rectangle
-    noStroke();        // Remove the stroke (outline) of the shape
-    rect(this.x, this.y, this.width, this.height);  // Draw the rectangle
+    fill(this.color);
+    noStroke();
+    rect(this.x, this.y, this.width, this.height);
   }
 }
 
-let bigRectangles = [];  // Initialize an empty array to store big rectangle objects
+let bigRectangles = []
+
+function mapToColorIndex(freqValue) {
+  return Math.floor(map(freqValue, 0, 255, 0, colors.length - 1));
+}
 
 // Define color variables in hexadecimal format
 let ww = '#EBCF14';
@@ -36,53 +40,45 @@ let dd = '#A53A32';
 let bb = '#39468C';
 let gg = '#D8D6C7';
 
-
 let song;
-
 let fft;
-
-let numBins = 128;
-
-let smoothing = 0.8;
-
-let isButtonPressed = false; // 初始状态为按钮未按下
+let numBins = 64;
+let smoothing = 0.4;
+let isButtonPressed = false;
 
 // 颜色数组，可以根据需要添加更多颜色
-let colors = ['#FFFFFF', '#EBCF14', '#A53A32', '#39468C', '#D8D6C7'];
+let colors = ['#FFFFFF', '#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530','#401019','#0388A6', '#D99962', '#04ADBF' ];
 
-// 映射频谱值到颜色索引的函数
-function mapToColorIndex(freqValue) {
-  return Math.floor(map(freqValue, 0, 255, 0, colors.length - 1));
-}
 
+// 存储每行和每列的颜色数组
+let rowColorsArrays = [
+  // ... 将 drawOriginal 函数中的每个 drawRow 调用的颜色数组放入这里 ...
+];
+
+let columnColorsArrays = [
+  // ... 将 drawOriginal 函数中的每个 drawColumn 调用的颜色数组放入这里 ...
+];
+
+// 计算行和列的数量
+let numRows = rowColorsArrays.length;
+let numColumns = columnColorsArrays.length;
 // Load sound file before setup() function runs
 function preload() {
-  //audio file from freesound https://freesound.org/people/multitonbits/sounds/383935/?
   song = loadSound("assets/meditation_guitar.wav");
 }
 
 // The setup function to initialize the canvas and create rectangle objects
 function setup() {
-  let canvasSize = min(windowWidth, windowHeight);  // Set the canvas size to the smaller dimension of the window
-  createCanvas(canvasSize, canvasSize);            // Create a square canvas
+  let canvasSize = min(windowWidth, windowHeight);
+  createCanvas(canvasSize, canvasSize);
 
-
-   // Create a new instance of p5.FFT() object
-   fft = new p5.FFT(smoothing, numBins);
-
-   song.connect(fft);
-
+  fft = new p5.FFT(smoothing, numBins);
+  song.connect(fft);
 
   button = createButton("Play/Pause");
-
-  //set the position of the button to the bottom center
   button.position((width - button.width) / 2, height - button.height - 2);
+  button.mousePressed(togglePlaying);
 
-  //We set the action of the button by choosing what action and then a function to run
-  //In this case, we want to run the function play_pause when the button is pressed
-  button.mousePressed(play_pause);
-
- 
   
   //————————————————————BIG RECT SECTION——————————————————
 
@@ -130,6 +126,16 @@ function setup() {
 
 }
 
+
+function togglePlaying() {
+  if (song.isPlaying()) {
+    song.pause(); // 暂停音乐
+    isButtonPressed = false;
+  } else {
+    song.play(); // 播放音乐
+    isButtonPressed = true;
+  }
+}
 
 
   
@@ -265,23 +271,36 @@ function drawOriginal() {
 
 }
 
-
-function drawWithEffects() {
-
+function drawWithAudioEffects() {
   let canvasSize = min(windowWidth, windowHeight);
   resizeCanvas(canvasSize, canvasSize);
   background(255);
 
-
-
-  // 根据频谱数据调整行和列的大小和颜色
+  // 获取频谱数据
   let spectrum = fft.analyze();
-  let numSquares = Math.floor(canvasSize * 0.022); // 假设每行/列有 canvasSize * 0.022 个方块
+  let numBars = spectrum.length; // 频谱数据的长度，即方块的数量
 
-  // 绘制行
-  for (let i = 0; i < spectrum.length; i++) {
-    let colorIndex = mapToColorIndex(spectrum[i]);
-    drawNewRow(0, (canvasSize * 0.56) - (i * canvasSize * 0.02), canvasSize * 0.022, canvasSize * 0.02, colorIndex);
+  // 定义方块的尺寸
+  let barWidth = canvasSize * 0.022; // 每个方块的宽度
+  let barHeight = canvasSize * 0.02; // 每个方块的高度
+
+  // 根据频谱数据绘制动态方块
+  for (let i = 0; i < numBars; i++) {
+    // 映射频谱值到颜色索引
+    let colorIndex = mapToColorIndex(spectrum[i]) % colors.length;
+    let color = colors[colorIndex];
+
+    // 映射频谱值到方块的振幅
+    let freqValue = spectrum[i];
+    let amplitude = map(freqValue, 0, 255, 0, barHeight * 5); // 振幅是方块高度的5倍
+
+    // 计算方块的新位置
+    let x = i * barWidth;
+    let y = height / 2 + sin(frameCount * 0.02 * i) * amplitude;
+
+    // 绘制方块
+    fill(color);
+    rect(x, y, barWidth, barHeight);
   }
 
   // 绘制大矩形
@@ -291,15 +310,7 @@ function drawWithEffects() {
 }
 
 
-function draw() {
-  background(255); // 清屏
 
-  if (isButtonPressed) {
-    drawWithEffects(); // 如果按钮被按下，绘制动态效果
-  } else {
-    drawOriginal(); // 如果按钮未被按下，绘制原始画面
-  }
-}
 
 // Function to draw a row of colored squares with dynamic height
 function drawRow(x, y, w, h, colors) {
@@ -307,16 +318,6 @@ function drawRow(x, y, w, h, colors) {
   for (let i = 0; i < colors.length; i++) {
     fill(colors[i]);  // Set the fill color for the square
     rect(x + i * w, y, w, h);  // Draw the square with dynamic height
-  }
-}
-
-// Function to draw a row of squares with dynamic height and color
-function drawNewRow(x, y, w, h, colorIndex) {
-  let color = colors[colorIndex];
-  noStroke();
-  for (let i = 0; i < w; i++) { // 注意这里的循环条件改为 w，因为我们是按宽度绘制
-    fill(color);
-    rect(x + i * w, y, w, h);
   }
 }
 
@@ -332,26 +333,21 @@ function drawColumn(x, y, w, h, colors) {
   
   //————————————————————BUTTON FUNCTION——————————————————
 
-  function play_pause() {
-    if (song.isPlaying()) {
-      song.stop();
-      isButtonPressed = false; // 停止音乐，设置按钮状态为未按下
-    } else {
-      song.loop(); // 循环播放音乐
-      isButtonPressed = true; // 音乐播放，设置按钮状态为已按下
-    }
-  }
-
   function draw() {
-  background(255); // 清屏
-
-  if (isButtonPressed) {
-    drawWithEffects(); // 如果按钮被按下，绘制动态效果
-  } else {
-    drawOriginal(); // 如果按钮未被按下，绘制原始画面
+    background(255); // 清屏
+    
+    if (isButtonPressed) {
+      drawWithAudioEffects(); // 如果按钮被按下，绘制动态效果
+    } else {
+      drawOriginal(); // 如果按钮未被按下，绘制原始画面
+    }
+    
+    // 无论按钮状态如何，都绘制大矩形
+    bigRectangles.forEach(rectangle => {
+      rectangle.display();
+    });
   }
-}
-
+  
   
   //————————————————————WINDOW SIZE——————————————————
 // Adjust canvas size when window is resized

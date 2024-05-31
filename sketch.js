@@ -1,11 +1,11 @@
-// Define a class named BigRectangle for creating and displaying large rectangles
+// Define a class named BigRectangle to create large rectangles
 class BigRectangle {
   constructor(x, y, width, height, color) {
-    this.x = x; // X-coordinate of the rectangle
-    this.y = y; // Y-coordinate of the rectangle
-    this.width = width; // Width of the rectangle
-    this.height = height; // Height of the rectangle
-    this.color = color; // Color of the rectangle
+    this.x = x; 
+    this.y = y; 
+    this.width = width; 
+    this.height = height; 
+    this.color = color; 
     this.initialColor = color; // Initial color for resetting
     this.baseX = x; // Base X-coordinate for resizing
     this.baseY = y; // Base Y-coordinate for resizing
@@ -36,7 +36,8 @@ class BigRectangle {
 
 let bigRectangles = []; // Array to store big rectangle objects
 
-function mapToColorIndex(freqValue) {
+
+function mapColorIndex(freqValue) {
   // Map the frequency value to an index for the color array
   return Math.floor(map(freqValue, 0, 255, 0, colors.length - 1));
 }
@@ -55,15 +56,17 @@ let button; // Button object
 let buttonLabel = 'Night'; // Label for the button
 let isButtonPressed = false; // Initial state for button press
 
-// Array of colors, more can be added as needed
+// Array of colors, this is for creating movements in the drawWithAudioEffects Section
 let colors = ['#0388A6', '#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530', '#401019', '#D99962', '#04ADBF'];
 
-// Load sound file before the setup() function runs
+
+//——————————————————————-PRE-LOAD SECTION——————————————————————————————
 function preload() {
-  song = loadSound("assets/489851__prime45__boogie-woogie.wav");
+  song = loadSound("assets/meditation_guitar.wav");
 }
 
-// The setup function to initialize the canvas and create rectangle objects
+
+// ————————————————————————THE SETUP SECTION——————————————————————————
 function setup() {
   let canvasSize = min(windowWidth, windowHeight);
   createCanvas(canvasSize, canvasSize);
@@ -73,7 +76,7 @@ function setup() {
 
   // Create and position the button
   button = createButton(buttonLabel);
-  button.position(width / 2, height / 2);
+  button.position(width, height / 2);
   button.mousePressed(togglePlaying);
 }
 
@@ -141,7 +144,7 @@ function drawOriginal() {
   translate(0, canvasSize * 0.56);
   noStroke();
 
-  //lower half rows
+  //Lower half rows
   drawRow(0, 0, rectWidth, rectHeight,
     [ww, ww, gg, bb, ww, ww, bb, ww, ww, ww, bb, ww, gg, ww, dd, ww, ww, dd,
       gg, gg, dd, ww, ww, gg, ww, gg, ww, ww, ww, dd, ww, bb, gg, gg, bb, ww, ww, dd,
@@ -170,79 +173,71 @@ function drawOriginal() {
   drawRow(canvasSize * 0.838, canvasSize * 0.24, rectWidth, rectHeight,
     [bb, ww, ww, gg, ww, dd]);
 
-
-
-  // the first row
+  // Upper half rows
   drawRow(0, canvasSize * -0.51, rectWidth, rectHeight*1.02,
     [ww, bb, ww, ww, ww, ww, ww, bb, ww, gg, ww, ww, ww, ww, ww, gg, ww,
       ww, ww, ww, ww, ww, ww, ww, gg, ww, gg, ww, gg, ww, ww, ww, ww, ww,
       gg, gg, ww, ww, ww, gg, bb, ww, gg, ww, bb, gg, ww, gg]);
-
-  // the second row
   drawRow(0, canvasSize * -0.38, rectWidth, rectHeight,
     [ww, dd, ww, ww, ww, bb, ww, gg, gg, dd, ww, gg, ww, bb, ww, gg, ww, ww,
       ww, ww, ww, gg, gg, bb, ww, dd, gg, gg, ww, ww, ww, ww, gg, gg, ww,
       ww, ww, gg, gg, gg, dd, ww, ww, gg, bb, ww]);
-
-  // the third row
   drawRow(0, canvasSize * -0.2, rectWidth, rectHeight,
     [ww, dd, ww, bb, ww, gg, dd, ww, ww, gg, bb, ww, ww, gg, ww, bb, ww, ww, ww,
       dd, ww, ww, bb, ww, ww, dd, ww, bb, ww, ww, dd, ww, ww, ww, dd, ww, ww, ww,
       ww, bb, ww, bb, ww, dd, ww, gg, bb, gg, ww]);
-
-  // the fourth row
   drawRow(0, canvasSize * -0.12, rectWidth, rectHeight,
     [ww, dd, gg, bb, ww, ww, dd, gg, ww, ww, gg, bb, ww, ww, dd, gg, gg, ww, ww, dd,
       gg, gg, gg, gg, bb, ww, ww, gg, ww, gg, ww, ww, dd, gg, ww, gg, ww, ww, bb, ww,
       ww, ww, dd, ww, ww, gg, dd, ww, dd, gg]);
 
 
-  //column
+  //Columns
   translate(0, (-canvasSize * 0.56));
 
   let rectNewHeight = canvasSize * 0.022;
-  //first column from the left
+  //First column from the left
   drawColumn(canvasSize * 0.022, 0, rectWidth, rectNewHeight,
     [ww, bb, gg, ww, ww, bb, ww, ww, dd, ww, ww, bb, ww, dd, ww, gg, dd]);
-  //second column from the left
+  //Second column from the left
   drawColumn(canvasSize * 0.066, 0, rectWidth, rectNewHeight,
     [dd, ww, gg, ww, ww, dd, ww, gg, ww, gg, ww, ww, gg, ww, ww, ww, ww, bb, ww, ww, bb, dd, ww, ww, gg, bb, ww, ww, dd, ww, gg, dd, gg, dd, ww, dd, gg, ww, ww, bb, gg, ww, gg, dd, ww, ww]);
-  //third column from the left
+  //Third column from the left
   drawColumn(canvasSize * 0.132, 0, rectWidth, rectNewHeight,
     [ww, ww, ww, gg, gg, bb, ww, ww, bb, ww, bb, bb, ww, dd, gg, gg, bb, gg, bb, gg, dd, ww, bb, ww, ww, bb, ww, ww, bb, ww, ww, bb, bb, dd, ww, bb, gg, dd, ww, bb, gg, bb, gg, bb]);
-  //forth column from the left
+  //Forth column from the left
   drawColumn(canvasSize * 0.242, 0, rectWidth, rectNewHeight,
     [dd, ww, gg, ww, ww, bb, ww, bb, ww, gg, ww, bb, ww, dd, ww, gg, ww, bb, gg, ww, bb, gg, ww, gg, ww, ww, bb, ww, dd, ww, gg, ww, ww, bb, ww, dd, gg, ww, gg, bb, gg, dd, ww, bb, ww, ww]);
 
-  //first column from the right
+  //First column from the right
   drawColumn(canvasSize * 0.95, 0, rectWidth, rectNewHeight,
     [dd, ww, dd, gg, ww, dd, ww, gg, bb, gg, ww, bb, gg, ww, dd, ww, gg, ww, ww, gg, dd, ww, bb, gg, ww, dd, ww, gg, ww, gg, ww, ww, dd, gg, bb, ww, ww, dd, ww, dd, ww, gg, ww, ww, dd, ww, ww]);
-  //second column from the right
+  //Second column from the right
   drawColumn(canvasSize * 0.912, 0, rectWidth, rectNewHeight,
     [ww, bb, gg, ww, gg, bb, bb]);
   drawColumn(canvasSize * 0.912, canvasSize * 0.179, rectWidth, rectNewHeight*0.98,
     [ww, gg, dd, dd, dd, gg, ww, gg, ww, gg, ww, ww, dd]);
   drawColumn(canvasSize * 0.912, canvasSize * 0.64, rectWidth, rectNewHeight,
     [dd, gg, ww, ww, gg, gg, bb, ww, ww, gg]);
-  //third column
+  //Third column
   drawColumn(canvasSize * 0.868, 0, rectWidth, rectNewHeight*0.96,
     [dd, gg, bb, gg, ww, dd, ww, gg, ww, gg, dd, dd, dd, gg, ww, bb, ww, dd]);
 
-  //fourth column
+  //Fourth column
   drawColumn(canvasSize * 0.824, 0, rectWidth, rectNewHeight,
     [ww, bb, gg, ww, ww, ww, bb, ww, bb, ww, ww, dd, ww, ww, gg, bb, ww, bb, ww, gg, dd, ww, ww, bb, ww, dd, ww, gg, bb, gg, ww, ww, dd, gg, bb, ww, ww, dd, gg, bb, ww, ww, bb, ww, dd, ww, gg, ww, ww, bb, gg, ww]);
 
-  // fifth column
+  //Fifth column
   drawColumn(canvasSize * 0.52, 0, rectWidth, rectNewHeight,
     [ww, gg, dd, ww, gg, ww, gg, dd, gg, ww, dd, ww, gg, ww, gg, ww, bb])
   drawColumn(canvasSize * 0.52, canvasSize * 0.465, rectWidth, rectNewHeight,
     [gg, ww, ww, bb, ww, ww, dd, gg, ww, ww, gg, bb, ww, gg, ww, gg, ww, ww, dd, gg, ww, dd, gg, ww, ww, bb, gg, ww, ww])
 
-  //sixth column
+  //Sixth column
   drawColumn(canvasSize * 0.472, 0, rectWidth, rectNewHeight,
     [dd, ww, gg, ww, bb, dd, ww, bb, ww, dd, gg, ww, ww, bb, ww, dd, gg, bb, ww, gg, ww, dd, ww, ww, gg, ww, dd, gg, dd, gg, ww, gg, ww, bb, ww, ww, dd, bb, gg, ww, dd, gg, ww]);
 
-  //inner column
+  //iIner column
   drawColumn(canvasSize * 0.592, canvasSize * 0.465, rectWidth, rectNewHeight,
     [ww, ww, gg, ww, dd, ww, dd]);
 
@@ -259,30 +254,34 @@ function drawOriginal() {
 
 //——————————————EFFECTS AFTER THE SOUND————————————
 
+//The following section is to create wave-like animation that 
+//moves according to the music spectrum. Inspired by https://editor.p5js.org/zhiying0819/sketches/oxf-dmlWx
 function drawWithAudioEffects() {
   let canvasSize = min(windowWidth, windowHeight);
   resizeCanvas(canvasSize, canvasSize);
   background(0);
 
-  // 获取频谱数据
+  // // Analyze the audio and retrieve the frequency spectrum data
   let spectrum = fft.analyze();
-  let numBars = spectrum.length; // 频谱数据的长度，即方块的数量
+  let numBars = spectrum.length; // The number of elements in the frequency spectrum
 
-  // 定义方块的尺寸
-  let barWidth = canvasSize * 0.022; // 每个方块的宽度
-  let barHeight = canvasSize * 0.02; // 每个方块的高度
+ // Define the size of the rectangles based on the canvas size
+  let barWidth = canvasSize * 0.022; 
+  let barHeight = canvasSize * 0.02; // Same as before
 
-  // 根据频谱数据绘制动态方块
+ // Loop through the frequency spectrum data to draw dynamic rectangles
   for (let i = 0; i < numBars; i++) {
-    // 映射频谱值到颜色索引
-    let colorIndex = mapToColorIndex(spectrum[i]) % colors.length;
+     // Map the frequency value to an index for the colors array
+    let colorIndex = mapColorIndex
+  (spectrum[i]) % colors.length;
     let color = colors[colorIndex];
 
-    // 映射频谱值到方块的振幅
+    // Map the frequency value to the amplitude of the rectangle's height
     let freqValue = spectrum[i];
-    let amplitude = map(freqValue, 0, 255, 0, barHeight * 2); // 振幅是方块高度的5倍
+    let amplitude = map(freqValue, 0, 255, 0, barHeight * 2); 
 
-    // 计算方块的新位置
+    // Calculate the new position for the rectangles based on the frequency data and time
+    //I use sin wave and cos wave to create a bit diffeence
     let x = i * barWidth;
     let y = height / 2 + sin(frameCount * 0.02 * i) * amplitude;
     
@@ -295,9 +294,11 @@ function drawWithAudioEffects() {
     let x4 = width / 2 + sin(frameCount * 0.02 * i) * amplitude;
     let y4 = i * barHeight;
 
-    // 绘制方块
+  // Draw the rectangles with the calculated positions and the mapped color
     fill(color);
     
+    // Draw rectangles at different positions with different waves
+    //creating wav-like animation
     rect(x, y+100, barWidth, barHeight);
     rect(x, y+200, barWidth, barHeight);
 
@@ -332,12 +333,13 @@ function drawWithAudioEffects() {
 
 
 //————————————————FUNCTIONS BEFORE THE BUTTON————————————————
-// Function to draw a row of colored squares with dynamic height
+
+// Function to draw a row of colored squares with different height
 function drawRow(x, y, w, h, colors) {
   noStroke();
   for (let i = 0; i < colors.length; i++) {
     fill(colors[i]);  // Set the fill color for the square
-    rect(x + i * w, y, w, h);  // Draw the square with dynamic height
+    rect(x + i * w, y, w, h); 
   }
 }
 
@@ -345,63 +347,60 @@ function drawRow(x, y, w, h, colors) {
 function drawColumn(x, y, w, h, colors) {
   for (let i = 0; i < colors.length; i++) {
     fill(colors[i]);  // Set the fill color for the square
-    rect(x, y + i * h, w, h);  // Draw the square
+    rect(x, y + i * h, w, h);  
   }
 }
 
   
   //————————————————————DRAW FUNCTION——————————————————
-
   function draw() {
     let canvasSize = min(windowWidth, windowHeight);
     resizeCanvas(canvasSize, canvasSize);
     background(255);
   
-    
-  if (isButtonPressed) {
-   
+    if (isButtonPressed) {
+      // Adjust the size and color of bigRectangles based on the audio frequency spectrum data
+      let spectrum = fft.analyze();
   
-    // 根据音频频谱数据调整 bigRectangles 的大小和颜色
-    let spectrum = fft.analyze();
+      drawWithAudioEffects();
+  
+      bigRectangles.forEach((rectangle, index) => {
+        
+        let freqValue = spectrum[0];
+        
+        let colorIndex = index % colors.length;
+        let dynamicColor = color(colors[colorIndex]); // Convert the color code to a p5.js color object
+  
+        // Ensure rectangle.color is a p5.js color object
+        if (typeof rectangle.color === 'string') {
+          rectangle.color = color(rectangle.color); // Convert existing color code to a p5.js color object
+        }
 
-    drawWithAudioEffects();
-    
-    bigRectangles.forEach((rectangle, index) => {
-      // 使用第一个频谱值作为示例来更新颜色和大小
-      let freqValue = spectrum[0];
-      let colorIndex = mapToColorIndex(freqValue) % colors.length;
-      let dynamicColor = color(colors[colorIndex]); // 将颜色代码转换为 p5.js 颜色对象
+        frameRate(30); // Set the frame rate to 30 FPS
 
-      // 确保 rectangle.color 是一个 p5.js 颜色对象
-      if (typeof rectangle.color === 'string') {
-        rectangle.color = color(rectangle.color); // 转换已有的颜色代码为 p5.js 颜色对象
-      }
-      frameRate(30); // 设置帧率为 30 FPS
-      // 使用 lerpColor 实现颜色的平滑过渡
-      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.05);
-    
-      // 更新矩形的大小
-      let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // 根据频谱值调整缩放比例
-      rectangle.width = rectangle.baseWidth * dynamicScale * canvasSize;
-      rectangle.height = rectangle.baseHeight * dynamicScale * canvasSize;
-
-      // 确保矩形大小不超过画布大小
-      rectangle.width = min(rectangle.width, canvasSize * 0.5);
-      rectangle.height = min(rectangle.height, canvasSize * 0.5);
-
-   
-    });
-
-    // 绘制更新后的 bigRectangles
-    bigRectangles.forEach(rectangle => {
-      rectangle.display();
-    });
-  } else {
-      // 如果按钮未被按下，绘制原始画面
+        // Use lerpColor to achieve a smooth color transition
+        rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.05);
+  
+        // Update the size of the rectangle
+        let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // Adjust the scaling factor based on the spectrum value
+        rectangle.width = rectangle.baseWidth * dynamicScale * canvasSize;
+        rectangle.height = rectangle.baseHeight * dynamicScale * canvasSize;
+  
+        // Ensure the rectangle size does not exceed the canvas size
+        rectangle.width = min(rectangle.width, canvasSize * 0.5);
+        rectangle.height = min(rectangle.height, canvasSize * 0.5);
+      });
+  
+      // Draw the updated bigRectangles
+      bigRectangles.forEach(rectangle => {
+        rectangle.display();
+      });
+    } else {
+      // If the button is not pressed, draw the original scene
       drawOriginal();
     }
   
-    // 无论按钮状态如何，都绘制大矩形
+    // Regardless of the button state, draw the big rectangles
     bigRectangles.forEach(rectangle => {
       rectangle.display();
     });
@@ -409,31 +408,32 @@ function drawColumn(x, y, w, h, colors) {
   
   function togglePlaying() {
     if (song.isPlaying()) {
-      song.pause(); // 暂停音乐
+      song.pause(); // Pause the music
       isButtonPressed = false;
       button.html("Night");
-      resetBigRectangles(); // 重置 bigRectangles 的状态
+      resetBigRectangles(); // Reset the state of bigRectangles
     } else {
-      song.loop(); // 播放音乐
+      song.loop(); // Play the music
       isButtonPressed = true;
       button.html("Day");
     }
   }
   
-  // 重置 bigRectangles 状态的函数
+  // Function to reset the state of bigRectangles
   function resetBigRectangles() {
     bigRectangles.forEach(rectangle => {
-      rectangle.resetColor(); // 重置颜色
-      rectangle.width = rectangle.baseWidth; // 重置宽度
-      rectangle.height = rectangle.baseHeight; // 重置高度
-      // 如果需要，可以添加更多重置属性的代码
+      rectangle.resetColor(); 
+      rectangle.width = rectangle.baseWidth; 
+      rectangle.height = rectangle.baseHeight; 
+      
     });
   }
   
-  //————————————————————WINDOW SIZE——————————————————
-// Adjust canvas size when window is resized
-function windowResized() {
-  let canvasSize = min(windowWidth, windowHeight);
-  resizeCanvas(canvasSize, canvasSize);
-  draw(); // ddraw the canvas after resizing
-}
+  //————————————————————WINDOW SIZE————————————————————
+
+  // Adjust the canvas size when the window is resized
+  function windowResized() {
+    let canvasSize = min(windowWidth, windowHeight);
+    resizeCanvas(canvasSize, canvasSize);
+    draw(); 
+  }

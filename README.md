@@ -1,76 +1,39 @@
-# 9103-Individual-Work
-
-Inspiration:
-https://github.com/preziotte/party-mode?tab=readme-ov-file
+# IDEA9103 MAJOR PROJECT - INDIVIDUAL
 
 
-let song; // 声音文件
-let fft; // FFT对象
+Hi! Welcome to my individual part of the animation of our Group Work: the representation of Broadway Boogie Woogie. The following content will give you a detailed *(maybe not quite)* instruction and introduction to my work.
 
-// 定义初始参数
-let phase = 0;
-let xSpacing = 20;
-let ySpacing = 2 * xSpacing;
-let ampAngle = 0;
-let frequency = 2;
+##Instruction
 
-let button; // 播放/暂停按钮
+This is an audio-based animated work. The interaction is simple, just click on the button outside the canvas to shift the artwork into 'nighttime', and wait until the music starts. 
 
-function preload() {
-  // 加载音频文件
-  song = loadSound("assets/meditation_guitar.wav");
-}
+You will see deconstructed lines move according to the music spectrum in a form of waves. The shapes will cross and separate, creating a vivid scene. The bigger parts will also change sizes and colours according to the music.
 
-function setup() {
-  createCanvas(500, 500);
-  noStroke();
 
-  // 创建 FFT 对象
-  fft = new p5.FFT();
+##Deatils of my approach
 
-  // 创建播放/暂停按钮
-  button = createButton("Play/Pause");
-  button.position(10, height - 40);
-  button.mousePressed(togglePlaying); // 按钮点击事件
+- The type of my animation is audio-based.
+- Aside from the size change of big rects (class:BigRectangles), which some of my groupmates is also doing, in my work there is a wave movement of rows and columns of rectangle lines, creating a dynamic and sensual atmosphere.
 
-  // 播放音频文件
-  song.loop();
-}
 
-function draw() {
-  background(0);
+##My Inspirations:
 
-  // 获取音频频谱数据
-  let spectrum = fft.analyze();
 
-  // 循环绘制波形
-  for (let y = -100; y <= height + 100; y += ySpacing) {
-    for (let x = 0; x <= width; x += xSpacing) {
-      // 计算当前角度
-      let angle = map(x, 0, width, 0, TWO_PI);
-      
-      // 根据频谱数据调整振幅
-      let amplitude = map(spectrum[int(x / xSpacing)], 0, 255, -100, 100);
-      
-      // 根据频谱数据调整色调
-      let c = map(spectrum[int(x / xSpacing)], 0, 255, 0, 255);
-      fill(c, 100, 100);
-      
-      // 计算矩形高度
-      let h = y + sin(angle * frequency + phase) * amplitude;
-      rect(x, h, xSpacing, xSpacing);
-    }
-  }
 
-  // 更新参数
-  ampAngle += 0.001;
-  phase += 0.001;
-}
+##A short technical explanation
 
-function togglePlaying() {
-  if (song.isPlaying()) {
-    song.pause(); // 暂停音乐
-  } else {
-    song.loop(); // 播放音乐
-  }
-}
+
+###The lines
+-I spent a lot of time trying to make the original rows and columns to move wave-like and at the same time maintaining their colour patterns. But as we eventually constrcuted it by constantly drawing, and that the color array is too huge, I was unable to achieve my wanted effects with the group code merely. So I applied an alternative way. 
+
+-I use the togglePlaying() p5.js function to handle events, separating the the original condition and the animated condition. 
+
+-drawWithAudioEffects(): I create new rectangles that changes their position based on frequency data, which is mapped to amplitude array. This part is mostly inspired and adopted from [this code in the p5.js community](https://github.com/preziotte/party-mode?tab=readme-ov-file) (this is also one of my inspirations). This code has provided me with lots of useful insights about mapping arrays to create synchronisation。
+
+
+###The Big rectangles
+
+-I intended to do a lerpColor change along with the size change of big rectangles but struggled about how to build the section. ChatGPT helped me on this. 
+
+let dynamicColor = color(colors[colorIndex]);
+这行代码使用从 colors 数组中得到的索引 colorIndex 来选择一个颜色值，然后将其转换为 p5.js 的颜色对象。p5.js 的 color() 函数可以接受一个颜色字符串并返回一个颜色对象，这个对象可以用于绘制函数中。

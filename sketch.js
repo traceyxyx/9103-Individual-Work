@@ -43,7 +43,7 @@ let gg = '#D8D6C7';
 let song;
 let fft;
 let numBins = 64;
-let smoothing = 0.4;
+let smoothing = 0.8;
 let isButtonPressed = false;
 
 // 颜色数组，可以根据需要添加更多颜色
@@ -271,6 +271,9 @@ function drawOriginal() {
 
 }
 
+
+
+//——————————————EFFECTS AFTER THE SOUND————————————
 function drawWithAudioEffects() {
   let canvasSize = min(windowWidth, windowHeight);
   resizeCanvas(canvasSize, canvasSize);
@@ -311,7 +314,7 @@ function drawWithAudioEffects() {
 
 
 
-
+//————————————————FUNCTIONS BEFORE THE BUTTON————————————————
 // Function to draw a row of colored squares with dynamic height
 function drawRow(x, y, w, h, colors) {
   noStroke();
@@ -320,7 +323,6 @@ function drawRow(x, y, w, h, colors) {
     rect(x + i * w, y, w, h);  // Draw the square with dynamic height
   }
 }
-
 
 // Function to draw a column of colodd squares
 function drawColumn(x, y, w, h, colors) {
@@ -331,13 +333,44 @@ function drawColumn(x, y, w, h, colors) {
 }
 
   
-  //————————————————————BUTTON FUNCTION——————————————————
+  //————————————————————DRAW FUNCTION——————————————————
 
   function draw() {
     background(255); // 清屏
     
     if (isButtonPressed) {
       drawWithAudioEffects(); // 如果按钮被按下，绘制动态效果
+     // 获取当前的频谱数据
+    let spectrum = fft.analyze();
+    
+    // 计算频谱数据的平均值，作为动态参数的基础
+    let total = 0;
+    for (let i = 0; i < spectrum.length; i++) {
+      total += spectrum[i];
+    }
+    let avgFreqValue = total / spectrum.length;
+    
+    // 将平均频谱值映射到缩放比例
+    let dynamicScale = map(avgFreqValue, 0, 255, 1, 8); // 调整映射范围以获得更好的效果
+
+    // 遍历所有大矩形并调整它们的大小
+    bigRectangles.forEach(rectangle => {
+      // 根据动态参数调整矩形的宽度和高度
+      let newWidth = rectangle.baseWidth * dynamicScale * min(windowWidth, windowHeight);
+      let newHeight = rectangle.baseHeight * dynamicScale * min(windowWidth, windowHeight);
+      
+      // 更新矩形的大小
+      rectangle.width = newWidth;
+      rectangle.height = newHeight;
+      
+      // 重新定位矩形以保持在画布中心，如果需要的话
+      rectangle.x = rectangle.baseX * min(windowWidth, windowHeight);
+      rectangle.y = rectangle.baseY * min(windowHeight, windowHeight);
+      
+      // 绘制矩形
+      rectangle.display();
+    });
+      
     } else {
       drawOriginal(); // 如果按钮未被按下，绘制原始画面
     }

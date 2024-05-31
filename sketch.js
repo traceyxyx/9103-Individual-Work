@@ -6,6 +6,7 @@ class BigRectangle {
     this.width = width;
     this.height = height;
     this.color = color;
+    this.initialColor = color; // 初始颜色，用于重置
     this.baseX = x;
     this.baseY = y;
     this.baseWidth = width;
@@ -24,8 +25,13 @@ class BigRectangle {
   display() {
     fill(this.color);
     noStroke();
-    rect(this.x, this.y, this.width, this.height);
+    rect(this.x, this.y, this.width, this.height);}
+
+      // 重置颜色为初始颜色的方法
+  resetColor() {
+    this.color = this.initialColor;
   }
+  
 }
 
 let bigRectangles = []
@@ -126,17 +132,24 @@ function setup() {
 
 }
 
-
 function togglePlaying() {
   if (song.isPlaying()) {
-    song.pause(); // 暂停音乐
+    song.stop();
     isButtonPressed = false;
+
+    // 重置 bigRectangles 的状态
+    bigRectangles.forEach(rectangle => {
+      rectangle.color = color(rectangle.initialColor); // 重置颜色
+      rectangle.width = rectangle.baseWidth * canvasSize;
+      rectangle.height = rectangle.baseHeight * canvasSize;
+      rectangle.x = rectangle.baseX * canvasSize;
+      rectangle.y = rectangle.baseY * canvasSize;
+    });
   } else {
-    song.play(); // 播放音乐
+    song.play();
     isButtonPressed = true;
   }
 }
-
 
   
   //————————————————————LINES AND ROWS——————————————————
@@ -295,7 +308,7 @@ function drawWithAudioEffects() {
 
     // 映射频谱值到方块的振幅
     let freqValue = spectrum[i];
-    let amplitude = map(freqValue, 0, 255, 0, barHeight * 5); // 振幅是方块高度的5倍
+    let amplitude = map(freqValue, 0, 255, 0, barHeight * 2); // 振幅是方块高度的5倍
 
     // 计算方块的新位置
     let x = i * barWidth;
@@ -306,10 +319,7 @@ function drawWithAudioEffects() {
     rect(x, y, barWidth, barHeight);
   }
 
-  // 绘制大矩形
-  bigRectangles.forEach(rectangle => {
-    rectangle.display();
-  });
+ 
 }
 
 
@@ -343,9 +353,13 @@ function drawColumn(x, y, w, h, colors) {
     
   if (isButtonPressed) {
     // 如果按钮被按下，实现动态效果
+    
 
     // 根据音频频谱数据调整 bigRectangles 的大小和颜色
     let spectrum = fft.analyze();
+
+    drawWithAudioEffects();
+    
     bigRectangles.forEach((rectangle, index) => {
       // 使用第一个频谱值作为示例来更新颜色和大小
       let freqValue = spectrum[0];
@@ -387,6 +401,26 @@ function drawColumn(x, y, w, h, colors) {
     });
   }
   
+  function togglePlaying() {
+    if (song.isPlaying()) {
+      song.pause(); // 暂停音乐
+      isButtonPressed = false;
+      resetBigRectangles(); // 重置 bigRectangles 的状态
+    } else {
+      song.play(); // 播放音乐
+      isButtonPressed = true;
+    }
+  }
+  
+  // 重置 bigRectangles 状态的函数
+  function resetBigRectangles() {
+    bigRectangles.forEach(rectangle => {
+      rectangle.resetColor(); // 重置颜色
+      rectangle.width = rectangle.baseWidth; // 重置宽度
+      rectangle.height = rectangle.baseHeight; // 重置高度
+      // 如果需要，可以添加更多重置属性的代码
+    });
+  }
   
   //————————————————————WINDOW SIZE——————————————————
 // Adjust canvas size when window is resized

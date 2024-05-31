@@ -50,24 +50,15 @@ let song;
 let fft;
 let numBins = 128;
 let smoothing = 0.8;
+let button; 
+let buttonLabel = 'Night'
 let isButtonPressed = false;
+
 
 // 颜色数组，可以根据需要添加更多颜色
 let colors =['#0388A6','#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530','#401019','#D99962', '#04ADBF' ];
 
 
-// 存储每行和每列的颜色数组
-let rowColorsArrays = [
-  // ... 将 drawOriginal 函数中的每个 drawRow 调用的颜色数组放入这里 ...
-];
-
-let columnColorsArrays = [
-  // ... 将 drawOriginal 函数中的每个 drawColumn 调用的颜色数组放入这里 ...
-];
-
-// 计算行和列的数量
-let numRows = rowColorsArrays.length;
-let numColumns = columnColorsArrays.length;
 // Load sound file before setup() function runs
 function preload() {
   song = loadSound("assets/meditation_guitar.wav");
@@ -81,8 +72,8 @@ function setup() {
   fft = new p5.FFT(smoothing, numBins);
   song.connect(fft);
 
-  button = createButton("Play/Pause");
-  button.position((width - button.width) / 2, height - button.height - 2);
+  button = createButton(buttonLabel);
+  button.position(width, height/2);
   button.mousePressed(togglePlaying);
 
   
@@ -130,25 +121,6 @@ function setup() {
   // Resize all big rectangles to fit the current canvas size
   bigRectangles.forEach(rectangle => rectangle.resize(canvasSize));
 
-}
-
-function togglePlaying() {
-  if (song.isPlaying()) {
-    song.stop();
-    isButtonPressed = false;
-
-    // 重置 bigRectangles 的状态
-    bigRectangles.forEach(rectangle => {
-      rectangle.color = color(rectangle.initialColor); // 重置颜色
-      rectangle.width = rectangle.baseWidth * canvasSize;
-      rectangle.height = rectangle.baseHeight * canvasSize;
-      rectangle.x = rectangle.baseX * canvasSize;
-      rectangle.y = rectangle.baseY * canvasSize;
-    });
-  } else {
-    song.play();
-    isButtonPressed = true;
-  }
 }
 
   
@@ -286,10 +258,11 @@ function drawOriginal() {
 
 
 //——————————————EFFECTS AFTER THE SOUND————————————
+
 function drawWithAudioEffects() {
   let canvasSize = min(windowWidth, windowHeight);
   resizeCanvas(canvasSize, canvasSize);
-  background(255);
+  background(0);
 
   // 获取频谱数据
   let spectrum = fft.analyze();
@@ -312,13 +285,15 @@ function drawWithAudioEffects() {
     // 计算方块的新位置
     let x = i * barWidth;
     let y = height / 2 + sin(frameCount * 0.02 * i) * amplitude;
-
-     // 计算方块的新位置
-     let x2 = width / 2 + cos(frameCount * 0.02 * i) * amplitude;
-     let y2 = i * barHeight;
+    
+    let x2 = width / 2 + cos(frameCount * 0.02 * i) * amplitude;
+    let y2 = i * barHeight;
 
     let x3 = i * barWidth;
     let y3 = height / 2 + cos(frameCount * 0.02 * i) * amplitude;
+
+    let x4 = width / 2 + sin(frameCount * 0.02 * i) * amplitude;
+    let y4 = i * barHeight;
 
     // 绘制方块
     fill(color);
@@ -334,14 +309,20 @@ function drawWithAudioEffects() {
 
     rect(x2, y2, barWidth, barHeight);
     rect(x2+40, y2, barWidth, barHeight);
-    rect(x2+200, y2, barWidth, barHeight);
-    rect(x2+250, y2, barWidth, barHeight);
-    rect(x2+300, y2, barWidth, barHeight);
-    rect(x2+350, y2, barWidth, barHeight);
+    rect(x2-250, y2, barWidth, barHeight);
+    rect(x2-350, y2, barWidth, barHeight);
+    rect(x2+280, y2, barWidth, barHeight);
+    
     
     rect(x3, y3, barWidth, barHeight);
     rect(x3, y3+300, barWidth, barHeight);
     rect(x3, y3-350, barWidth, barHeight);
+    
+    rect(x4-100, y4, barWidth, barHeight);
+    rect(x4-150, y4, barWidth, barHeight);
+    rect(x4+200, y4, barWidth, barHeight);
+    rect(x4+250, y4, barWidth, barHeight);
+    rect(x4+320, y4, barWidth, barHeight);
     
   }
 
@@ -395,10 +376,10 @@ function drawColumn(x, y, w, h, colors) {
       if (typeof rectangle.color === 'string') {
         rectangle.color = color(rectangle.color); // 转换已有的颜色代码为 p5.js 颜色对象
       }
-
+      frameRate(30); // 设置帧率为 30 FPS
       // 使用 lerpColor 实现颜色的平滑过渡
-      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.3);
-
+      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.05);
+    
       // 更新矩形的大小
       let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // 根据频谱值调整缩放比例
       rectangle.width = rectangle.baseWidth * dynamicScale * canvasSize;
@@ -430,10 +411,12 @@ function drawColumn(x, y, w, h, colors) {
     if (song.isPlaying()) {
       song.pause(); // 暂停音乐
       isButtonPressed = false;
+      button.html("Night");
       resetBigRectangles(); // 重置 bigRectangles 的状态
     } else {
       song.play(); // 播放音乐
       isButtonPressed = true;
+      button.html("Day");
     }
   }
   

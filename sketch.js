@@ -1,11 +1,11 @@
 // Define a class named BigRectangle to create large rectangles
 class BigRectangle {
   constructor(x, y, width, height, color) {
-    this.x = x; 
-    this.y = y; 
-    this.width = width; 
-    this.height = height; 
-    this.color = color; 
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
     this.initialColor = color; // Initial color for resetting
     this.baseX = x; // Base X-coordinate for resizing
     this.baseY = y; // Base Y-coordinate for resizing
@@ -20,7 +20,7 @@ class BigRectangle {
     this.width = this.baseWidth * canvasSize;
     this.height = this.baseHeight * canvasSize;
   }
-   
+
   // Method to display the rectangle
   display() {
     fill(this.color);
@@ -80,54 +80,54 @@ function setup() {
   button.mousePressed(togglePlaying);
 }
 
-  
-  //————————————————————BIG RECT SECTION——————————————————
 
-  // Set big rectangle, Layer them on the canvas from largest to smallest.
-  bigRectangles.push(new BigRectangle(0.868, 0.22, 0.066, 0.066, dd));
-  bigRectangles.push(new BigRectangle(0.648, 0.198, 0.088, 0.165, bb));
-  bigRectangles.push(new BigRectangle(0.087, 0.66, 0.066, 0.066, bb));
-  bigRectangles.push(new BigRectangle(0.154, 0.770, 0.088, 0.088, ww));
-  bigRectangles.push(new BigRectangle(0.185, 0.793, 0.022, 0.022, gg));
-  bigRectangles.push(new BigRectangle(0.846, 0.666, 0.066, 0.066, bb));
-  bigRectangles.push(new BigRectangle(0.846, 0.732, 0.066, 0.033, ww));
-  bigRectangles.push(new BigRectangle(0.846, 0.765, 0.066, 0.035, dd));
-  bigRectangles.push(new BigRectangle(0.154, 0.088, 0.088, 0.022, ww));
-  bigRectangles.push(new BigRectangle(0.868, 0.21, 0.066, 0.066, dd));
-  bigRectangles.push(new BigRectangle(0.648, 0.198, 0.088, 0.165, bb));
-  bigRectangles.push(new BigRectangle(0.352, 0.374, 0.065, 0.187, ww));
-  bigRectangles.push(new BigRectangle(0.692, 0.462, 0.088, 0.1, dd));
-  bigRectangles.push(new BigRectangle(0.176, 0.358, 0.044, 0.088, ww));
-  bigRectangles.push(new BigRectangle(0.286, 0.07, 0.066, 0.11, dd));
-  bigRectangles.push(new BigRectangle(0.176, 0.066, 0.044, 0.11, dd));
-  bigRectangles.push(new BigRectangle(0.286, 0.154, 0.066, 0.028, gg));
-  bigRectangles.push(new BigRectangle(0.3, 0.099, 0.033, 0.033, gg));
-  bigRectangles.push(new BigRectangle(0.352, 0.44, 0.066, 0.022, gg));
-  bigRectangles.push(new BigRectangle(0.352, 0.487, 0.066, 0.044, gg));
-  bigRectangles.push(new BigRectangle(0.176, 0.11, 0.044, 0.022, gg));
-  bigRectangles.push(new BigRectangle(0.187, 0.396, 0.022, 0.022, gg));
-  bigRectangles.push(new BigRectangle(0.286, 0.456, 0.044, 0.11, bb));
-  bigRectangles.push(new BigRectangle(0.286, 0.456, 0.044, 0.022, ww));
-  bigRectangles.push(new BigRectangle(0.297, 0.5, 0.022, 0.022, ww));
-  bigRectangles.push(new BigRectangle(0.648, 0.264, 0.088, 0.066, dd));
-  bigRectangles.push(new BigRectangle(0.67, 0.275, 0.044, 0.033, ww));
-  bigRectangles.push(new BigRectangle(0.714, 0.502, 0.044, 0.033, gg));
-  bigRectangles.push(new BigRectangle(0.692, 0.58, 0.088, 0.04, gg));
-  bigRectangles.push(new BigRectangle(0.846, 0.502, 0.105, 0.04, ww));
-  bigRectangles.push(new BigRectangle(0.888, 0.502, 0.022, 0.04, dd));
-  bigRectangles.push(new BigRectangle(0.088, 0.22, 0.045, 0.045, bb));
-  bigRectangles.push(new BigRectangle(0.89, 0.11, 0.06, 0.047, bb));
-  bigRectangles.push(new BigRectangle(0.154, 0.265, 0.088, 0.075, ww));
-  bigRectangles.push(new BigRectangle(0.181, 0.287, 0.035, 0.035, gg));
-  bigRectangles.push(new BigRectangle(0.381, 0.946, 0.066, 0.044, dd));
+//————————————————————BIG RECT SECTION——————————————————
 
-
-  // Resize all big rectangles to fit the current canvas size
-  bigRectangles.forEach(rectangle => rectangle.resize(canvasSize));
+// Set big rectangle, Layer them on the canvas from largest to smallest.
+bigRectangles.push(new BigRectangle(0.868, 0.22, 0.066, 0.066, dd));
+bigRectangles.push(new BigRectangle(0.648, 0.198, 0.088, 0.165, bb));
+bigRectangles.push(new BigRectangle(0.087, 0.66, 0.066, 0.066, bb));
+bigRectangles.push(new BigRectangle(0.154, 0.770, 0.088, 0.088, ww));
+bigRectangles.push(new BigRectangle(0.185, 0.793, 0.022, 0.022, gg));
+bigRectangles.push(new BigRectangle(0.846, 0.666, 0.066, 0.066, bb));
+bigRectangles.push(new BigRectangle(0.846, 0.732, 0.066, 0.033, ww));
+bigRectangles.push(new BigRectangle(0.846, 0.765, 0.066, 0.035, dd));
+bigRectangles.push(new BigRectangle(0.154, 0.088, 0.088, 0.022, ww));
+bigRectangles.push(new BigRectangle(0.868, 0.21, 0.066, 0.066, dd));
+bigRectangles.push(new BigRectangle(0.648, 0.198, 0.088, 0.165, bb));
+bigRectangles.push(new BigRectangle(0.352, 0.374, 0.065, 0.187, ww));
+bigRectangles.push(new BigRectangle(0.692, 0.462, 0.088, 0.1, dd));
+bigRectangles.push(new BigRectangle(0.176, 0.358, 0.044, 0.088, ww));
+bigRectangles.push(new BigRectangle(0.286, 0.07, 0.066, 0.11, dd));
+bigRectangles.push(new BigRectangle(0.176, 0.066, 0.044, 0.11, dd));
+bigRectangles.push(new BigRectangle(0.286, 0.154, 0.066, 0.028, gg));
+bigRectangles.push(new BigRectangle(0.3, 0.099, 0.033, 0.033, gg));
+bigRectangles.push(new BigRectangle(0.352, 0.44, 0.066, 0.022, gg));
+bigRectangles.push(new BigRectangle(0.352, 0.487, 0.066, 0.044, gg));
+bigRectangles.push(new BigRectangle(0.176, 0.11, 0.044, 0.022, gg));
+bigRectangles.push(new BigRectangle(0.187, 0.396, 0.022, 0.022, gg));
+bigRectangles.push(new BigRectangle(0.286, 0.456, 0.044, 0.11, bb));
+bigRectangles.push(new BigRectangle(0.286, 0.456, 0.044, 0.022, ww));
+bigRectangles.push(new BigRectangle(0.297, 0.5, 0.022, 0.022, ww));
+bigRectangles.push(new BigRectangle(0.648, 0.264, 0.088, 0.066, dd));
+bigRectangles.push(new BigRectangle(0.67, 0.275, 0.044, 0.033, ww));
+bigRectangles.push(new BigRectangle(0.714, 0.502, 0.044, 0.033, gg));
+bigRectangles.push(new BigRectangle(0.692, 0.58, 0.088, 0.04, gg));
+bigRectangles.push(new BigRectangle(0.846, 0.502, 0.105, 0.04, ww));
+bigRectangles.push(new BigRectangle(0.888, 0.502, 0.022, 0.04, dd));
+bigRectangles.push(new BigRectangle(0.088, 0.22, 0.045, 0.045, bb));
+bigRectangles.push(new BigRectangle(0.89, 0.11, 0.06, 0.047, bb));
+bigRectangles.push(new BigRectangle(0.154, 0.265, 0.088, 0.075, ww));
+bigRectangles.push(new BigRectangle(0.181, 0.287, 0.035, 0.035, gg));
+bigRectangles.push(new BigRectangle(0.381, 0.946, 0.066, 0.044, dd));
 
 
-  
-  //————————————————————LINES AND ROWS——————————————————
+// Resize all big rectangles to fit the current canvas size
+bigRectangles.forEach(rectangle => rectangle.resize(canvasSize));
+
+
+
+//————————————————————LINES AND ROWS——————————————————
 // The draw function that gets called repeatedly to draw the content on the canvas
 function drawOriginal() {
   // Set canvas size and clear the background
@@ -140,7 +140,7 @@ function drawOriginal() {
   let rectHeight = canvasSize * 0.02;
 
 
-//Draw rows and columns
+  //Draw rows and columns
   translate(0, canvasSize * 0.56);
   noStroke();
 
@@ -174,7 +174,7 @@ function drawOriginal() {
     [bb, ww, ww, gg, ww, dd]);
 
   // Upper half rows
-  drawRow(0, canvasSize * -0.51, rectWidth, rectHeight*1.02,
+  drawRow(0, canvasSize * -0.51, rectWidth, rectHeight * 1.02,
     [ww, bb, ww, ww, ww, ww, ww, bb, ww, gg, ww, ww, ww, ww, ww, gg, ww,
       ww, ww, ww, ww, ww, ww, ww, gg, ww, gg, ww, gg, ww, ww, ww, ww, ww,
       gg, gg, ww, ww, ww, gg, bb, ww, gg, ww, bb, gg, ww, gg]);
@@ -215,12 +215,12 @@ function drawOriginal() {
   //Second column from the right
   drawColumn(canvasSize * 0.912, 0, rectWidth, rectNewHeight,
     [ww, bb, gg, ww, gg, bb, bb]);
-  drawColumn(canvasSize * 0.912, canvasSize * 0.179, rectWidth, rectNewHeight*0.98,
+  drawColumn(canvasSize * 0.912, canvasSize * 0.179, rectWidth, rectNewHeight * 0.98,
     [ww, gg, dd, dd, dd, gg, ww, gg, ww, gg, ww, ww, dd]);
   drawColumn(canvasSize * 0.912, canvasSize * 0.64, rectWidth, rectNewHeight,
     [dd, gg, ww, ww, gg, gg, bb, ww, ww, gg]);
   //Third column
-  drawColumn(canvasSize * 0.868, 0, rectWidth, rectNewHeight*0.96,
+  drawColumn(canvasSize * 0.868, 0, rectWidth, rectNewHeight * 0.96,
     [dd, gg, bb, gg, ww, dd, ww, gg, ww, gg, dd, dd, dd, gg, ww, bb, ww, dd]);
 
   //Fourth column
@@ -265,26 +265,26 @@ function drawWithAudioEffects() {
   let spectrum = fft.analyze();
   let numBars = spectrum.length; // The number of elements in the frequency spectrum
 
- // Define the size of the rectangles based on the canvas size
-  let barWidth = canvasSize * 0.022; 
+  // Define the size of the rectangles based on the canvas size
+  let barWidth = canvasSize * 0.022;
   let barHeight = canvasSize * 0.02; // Same as before
 
- // Loop through the frequency spectrum data to draw dynamic rectangles
+  // Loop through the frequency spectrum data to draw dynamic rectangles
   for (let i = 0; i < numBars; i++) {
-     // Map the frequency value to an index for the colors array
+    // Map the frequency value to an index for the colors array
     let colorIndex = mapColorIndex
-  (spectrum[i]) % colors.length;
+      (spectrum[i]) % colors.length;
     let color = colors[colorIndex];
 
     // Map the frequency value to the amplitude of the rectangle's height
     let freqValue = spectrum[i];
-    let amplitude = map(freqValue, 0, 255, 0, barHeight * 2); 
+    let amplitude = map(freqValue, 0, 255, 0, barHeight * 2);
 
     // Calculate the new position for the rectangles based on the frequency data and time
     //I use sin wave and cos wave to create a bit diffeence
     let x = i * barWidth;
     let y = height / 2 + sin(frameCount * 0.02 * i) * amplitude;
-    
+
     let x2 = width / 2 + cos(frameCount * 0.02 * i) * amplitude;
     let y2 = i * barHeight;
 
@@ -294,40 +294,40 @@ function drawWithAudioEffects() {
     let x4 = width / 2 + sin(frameCount * 0.02 * i) * amplitude;
     let y4 = i * barHeight;
 
-  // Draw the rectangles with the calculated positions and the mapped color
+    // Draw the rectangles with the calculated positions and the mapped color
     fill(color);
-    
+
     // Draw rectangles at different positions with different waves
     //creating wav-like animation
-    rect(x, y+100, barWidth, barHeight);
-    rect(x, y+200, barWidth, barHeight);
+    rect(x, y + 100, barWidth, barHeight);
+    rect(x, y + 200, barWidth, barHeight);
 
-    rect(x, y+400, barWidth, barHeight);
+    rect(x, y + 400, barWidth, barHeight);
 
-    rect(x, y-100, barWidth, barHeight);
-    rect(x, y-200, barWidth, barHeight);
-    
+    rect(x, y - 100, barWidth, barHeight);
+    rect(x, y - 200, barWidth, barHeight);
+
 
     rect(x2, y2, barWidth, barHeight);
-    rect(x2+40, y2, barWidth, barHeight);
-    rect(x2-250, y2, barWidth, barHeight);
-    rect(x2-350, y2, barWidth, barHeight);
-    rect(x2+280, y2, barWidth, barHeight);
-    
-    
+    rect(x2 + 40, y2, barWidth, barHeight);
+    rect(x2 - 250, y2, barWidth, barHeight);
+    rect(x2 - 350, y2, barWidth, barHeight);
+    rect(x2 + 280, y2, barWidth, barHeight);
+
+
     rect(x3, y3, barWidth, barHeight);
-    rect(x3, y3+300, barWidth, barHeight);
-    rect(x3, y3-350, barWidth, barHeight);
-    
-    rect(x4-100, y4, barWidth, barHeight);
-    rect(x4-150, y4, barWidth, barHeight);
-    rect(x4+200, y4, barWidth, barHeight);
-    rect(x4+250, y4, barWidth, barHeight);
-    rect(x4+320, y4, barWidth, barHeight);
-    
+    rect(x3, y3 + 300, barWidth, barHeight);
+    rect(x3, y3 - 350, barWidth, barHeight);
+
+    rect(x4 - 100, y4, barWidth, barHeight);
+    rect(x4 - 150, y4, barWidth, barHeight);
+    rect(x4 + 200, y4, barWidth, barHeight);
+    rect(x4 + 250, y4, barWidth, barHeight);
+    rect(x4 + 320, y4, barWidth, barHeight);
+
   }
 
- 
+
 }
 
 
@@ -339,7 +339,7 @@ function drawRow(x, y, w, h, colors) {
   noStroke();
   for (let i = 0; i < colors.length; i++) {
     fill(colors[i]);  // Set the fill color for the square
-    rect(x + i * w, y, w, h); 
+    rect(x + i * w, y, w, h);
   }
 }
 
@@ -347,93 +347,94 @@ function drawRow(x, y, w, h, colors) {
 function drawColumn(x, y, w, h, colors) {
   for (let i = 0; i < colors.length; i++) {
     fill(colors[i]);  // Set the fill color for the square
-    rect(x, y + i * h, w, h);  
+    rect(x, y + i * h, w, h);
   }
 }
 
-  
-  //————————————————————DRAW FUNCTION——————————————————
-  function draw() {
-    let canvasSize = min(windowWidth, windowHeight);
-    resizeCanvas(canvasSize, canvasSize);
-    background(255);
-  
-    if (isButtonPressed) {
-      // Adjust the size and color of bigRectangles based on the audio frequency spectrum data
-      let spectrum = fft.analyze();
-  
-      drawWithAudioEffects();
-  
-      bigRectangles.forEach((rectangle, index) => {
-        
-        let freqValue = spectrum[0];
-        
-        let colorIndex = index % colors.length;
-        let dynamicColor = color(colors[colorIndex]); // Convert the color code to a p5.js color object
-  
-        // Ensure rectangle.color is a p5.js color object
-        if (typeof rectangle.color === 'string') {
-          rectangle.color = color(rectangle.color); // Convert existing color code to a p5.js color object
-        }
 
-        frameRate(30); // Set the frame rate to 30 FPS
+//————————————————————DRAW FUNCTION——————————————————
+function draw() {
+  let canvasSize = min(windowWidth, windowHeight);
+  resizeCanvas(canvasSize, canvasSize);
+  background(255);
 
-        // Use lerpColor to achieve a smooth color transition
-        rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.05);
-  
-        // Update the size of the rectangle
-        let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // Adjust the scaling factor based on the spectrum value
-        rectangle.width = rectangle.baseWidth * dynamicScale * canvasSize;
-        rectangle.height = rectangle.baseHeight * dynamicScale * canvasSize;
-  
-        // Ensure the rectangle size does not exceed the canvas size
-        rectangle.width = min(rectangle.width, canvasSize * 0.5);
-        rectangle.height = min(rectangle.height, canvasSize * 0.5);
-      });
-  
-      // Draw the updated bigRectangles
-      bigRectangles.forEach(rectangle => {
-        rectangle.display();
-      });
-    } else {
-      // If the button is not pressed, draw the original scene
-      drawOriginal();
-    }
-  
-    // Regardless of the button state, draw the big rectangles
+  if (isButtonPressed) {
+    // Adjust the size and color of bigRectangles based on the audio frequency spectrum data
+    let spectrum = fft.analyze();
+
+    drawWithAudioEffects();
+
+    bigRectangles.forEach((rectangle, index) => {
+
+      let freqValue = spectrum[0];
+
+      let colorIndex = index % colors.length;
+      let dynamicColor = color(colors[colorIndex]); // Convert the color code to a p5.js color object
+
+      // Ensure rectangle.color is a p5.js color object
+      if (typeof rectangle.color === 'string') {
+        rectangle.color = color(rectangle.color); // Convert existing color code to a p5.js color object
+      }
+
+      frameRate(30); // Set the frame rate to 30 FPS
+
+      // Use lerpColor to achieve a smooth color transition
+      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.05);
+
+      // Update the size of the rectangle
+      let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // Adjust the scaling factor based on the spectrum value
+      rectangle.width = rectangle.baseWidth * dynamicScale * canvasSize;
+      rectangle.height = rectangle.baseHeight * dynamicScale * canvasSize;
+
+      // Ensure the rectangle size does not exceed the canvas size
+      rectangle.width = min(rectangle.width, canvasSize * 0.5);
+      rectangle.height = min(rectangle.height, canvasSize * 0.5);
+    });
+
+    // Draw the updated bigRectangles
     bigRectangles.forEach(rectangle => {
       rectangle.display();
     });
+  } else {
+    // If the button is not pressed, draw the original scene
+    drawOriginal();
   }
-  
-  function togglePlaying() {
-    if (song.isPlaying()) {
-      song.pause(); // Pause the music
-      isButtonPressed = false;
-      button.html("Night");
-      resetBigRectangles(); // Reset the state of bigRectangles
-    } else {
-      song.loop(); // Play the music
-      isButtonPressed = true;
-      button.html("Day");
-    }
-  }
-  
-  // Function to reset the state of bigRectangles
-  function resetBigRectangles() {
-    bigRectangles.forEach(rectangle => {
-      rectangle.resetColor(); 
-      rectangle.width = rectangle.baseWidth; 
-      rectangle.height = rectangle.baseHeight; 
-      
-    });
-  }
-  
-  //————————————————————WINDOW SIZE————————————————————
 
-  // Adjust the canvas size when the window is resized
-  function windowResized() {
-    let canvasSize = min(windowWidth, windowHeight);
-    resizeCanvas(canvasSize, canvasSize);
-    draw(); 
+  // Regardless of the button state, draw the big rectangles
+  bigRectangles.forEach(rectangle => {
+    rectangle.display();
+  });
+}
+
+function togglePlaying() {
+  if (song.isPlaying()) {
+    song.pause(); // Pause the music
+    isButtonPressed = false;
+    button.html("Night");
+    resetBigRectangles(); // Reset the state of bigRectangles
+  } else {
+    song.loop(); // Play the music
+    isButtonPressed = true;
+    button.html("Day");
   }
+}
+
+
+// Function to reset the state of bigRectangles
+function resetBigRectangles() {
+  bigRectangles.forEach(rectangle => {
+    rectangle.resetColor();
+    rectangle.width = rectangle.baseWidth;
+    rectangle.height = rectangle.baseHeight;
+
+  });
+}
+
+//————————————————————WINDOW SIZE————————————————————
+
+// Adjust the canvas size when the window is resized
+function windowResized() {
+  let canvasSize = min(windowWidth, windowHeight);
+  resizeCanvas(canvasSize, canvasSize);
+  draw();
+}

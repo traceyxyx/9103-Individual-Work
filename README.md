@@ -23,14 +23,15 @@ My inspirations are:
 
 ![Screenshot of it](assets/inspiration.png).
 
-[This online artwork] https://www.xiaohongshu.com/explore/6537a63e000000001e02f2d4
+[And this online artwork] (https://www.xiaohongshu.com/explore/6537a63e000000001e02f2d4)
 
 ![Screenshot of it](assets/2.png).
 
 I really like their smooth, curvy movements.
 
-##A short technical explanation
 
+
+## A short technical explanation
 
 ### The lines
 -I spent a lot of time trying to make the original rows and columns to move wave-like and at the same time maintaining their colour patterns. But as we eventually constrcuted it by constantly drawing, and that the color array is too huge, I was unable to achieve my wanted effects with the group code merely. So I applied an alternative way. 

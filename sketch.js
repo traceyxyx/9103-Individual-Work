@@ -19,7 +19,7 @@ class BigRectangle {
     this.width = this.baseWidth * canvasSize;
     this.height = this.baseHeight * canvasSize;
   }
-
+   
   // Method to display the rectangle
   display() {
     fill(this.color);
@@ -336,45 +336,51 @@ function drawColumn(x, y, w, h, colors) {
   //————————————————————DRAW FUNCTION——————————————————
 
   function draw() {
-    background(255); // 清屏
+    let canvasSize = min(windowWidth, windowHeight);
+    resizeCanvas(canvasSize, canvasSize);
+    background(255);
+  
     
-    if (isButtonPressed) {
-      drawWithAudioEffects(); // 如果按钮被按下，绘制动态效果
+  if (isButtonPressed) {
+    // 如果按钮被按下，实现动态效果
 
-    //Below will trigger the changes for big rectangles
-     // 获取当前的频谱数据
+    // 根据音频频谱数据调整 bigRectangles 的大小和颜色
     let spectrum = fft.analyze();
-    
-    // 计算频谱数据的平均值，作为动态参数的基础
-    let total = 0;
-    for (let i = 0; i < spectrum.length; i++) {
-      total += spectrum[i];
-    }
-    let avgFreqValue = total / spectrum.length;
-    
-    // 将平均频谱值映射到缩放比例
-    let dynamicScale = map(avgFreqValue, 0, 255, 1, 6); // 调整映射范围以获得更好的效果
+    bigRectangles.forEach((rectangle, index) => {
+      // 使用第一个频谱值作为示例来更新颜色和大小
+      let freqValue = spectrum[0];
+      let colorIndex = mapToColorIndex(freqValue) % colors.length;
+      let dynamicColor = color(colors[colorIndex]); // 将颜色代码转换为 p5.js 颜色对象
 
-    // 遍历所有大矩形并调整它们的大小
-    bigRectangles.forEach(rectangle => {
-      // 根据动态参数调整矩形的宽度和高度
-      let newWidth = rectangle.baseWidth * dynamicScale * min(windowWidth, windowHeight);
-      let newHeight = rectangle.baseHeight * dynamicScale * min(windowWidth, windowHeight);
-      
+      // 确保 rectangle.color 是一个 p5.js 颜色对象
+      if (typeof rectangle.color === 'string') {
+        rectangle.color = color(rectangle.color); // 转换已有的颜色代码为 p5.js 颜色对象
+      }
+
+      // 使用 lerpColor 实现颜色的平滑过渡
+      rectangle.color = lerpColor(rectangle.color, dynamicColor, 0.1);
+
       // 更新矩形的大小
-      rectangle.width = newWidth;
-      rectangle.height = newHeight;
-      
+      let dynamicScale = map(freqValue, 0, 255, 0.5, 2); // 根据频谱值调整缩放比例
+      rectangle.width = rectangle.baseWidth * dynamicScale * canvasSize;
+      rectangle.height = rectangle.baseHeight * dynamicScale * canvasSize;
 
-      
-      // 绘制矩形
+      // 确保矩形大小不超过画布大小
+      rectangle.width = min(rectangle.width, canvasSize * 0.9);
+      rectangle.height = min(rectangle.height, canvasSize * 0.9);
+
+   
+    });
+
+    // 绘制更新后的 bigRectangles
+    bigRectangles.forEach(rectangle => {
       rectangle.display();
     });
-      
-    } else {
-      drawOriginal(); // 如果按钮未被按下，绘制原始画面
+  } else {
+      // 如果按钮未被按下，绘制原始画面
+      drawOriginal();
     }
-    
+  
     // 无论按钮状态如何，都绘制大矩形
     bigRectangles.forEach(rectangle => {
       rectangle.display();

@@ -340,6 +340,8 @@ function drawColumn(x, y, w, h, colors) {
     
     if (isButtonPressed) {
       drawWithAudioEffects(); // 如果按钮被按下，绘制动态效果
+
+    //Below will trigger the changes for big rectangles
      // 获取当前的频谱数据
     let spectrum = fft.analyze();
     
@@ -351,7 +353,7 @@ function drawColumn(x, y, w, h, colors) {
     let avgFreqValue = total / spectrum.length;
     
     // 将平均频谱值映射到缩放比例
-    let dynamicScale = map(avgFreqValue, 0, 255, 1, 8); // 调整映射范围以获得更好的效果
+    let dynamicScale = map(avgFreqValue, 0, 255, 1, 6); // 调整映射范围以获得更好的效果
 
     // 遍历所有大矩形并调整它们的大小
     bigRectangles.forEach(rectangle => {
@@ -363,9 +365,7 @@ function drawColumn(x, y, w, h, colors) {
       rectangle.width = newWidth;
       rectangle.height = newHeight;
       
-      // 重新定位矩形以保持在画布中心，如果需要的话
-      rectangle.x = rectangle.baseX * min(windowWidth, windowHeight);
-      rectangle.y = rectangle.baseY * min(windowHeight, windowHeight);
+
       
       // 绘制矩形
       rectangle.display();

@@ -1,16 +1,16 @@
 // Define a class named BigRectangle for creating and displaying large rectangles
 class BigRectangle {
   constructor(x, y, width, height, color) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color;
-    this.initialColor = color; // 初始颜色，用于重置
-    this.baseX = x;
-    this.baseY = y;
-    this.baseWidth = width;
-    this.baseHeight = height;
+    this.x = x; // X-coordinate of the rectangle
+    this.y = y; // Y-coordinate of the rectangle
+    this.width = width; // Width of the rectangle
+    this.height = height; // Height of the rectangle
+    this.color = color; // Color of the rectangle
+    this.initialColor = color; // Initial color for resetting
+    this.baseX = x; // Base X-coordinate for resizing
+    this.baseY = y; // Base Y-coordinate for resizing
+    this.baseWidth = width; // Base width for resizing
+    this.baseHeight = height; // Base height for resizing
   }
 
   // Method to resize the rectangle based on the new canvas size
@@ -25,18 +25,19 @@ class BigRectangle {
   display() {
     fill(this.color);
     noStroke();
-    rect(this.x, this.y, this.width, this.height);}
+    rect(this.x, this.y, this.width, this.height);
+  }
 
-      // 重置颜色为初始颜色的方法
+  // Method to reset the color to the initial color
   resetColor() {
     this.color = this.initialColor;
   }
-  
 }
 
-let bigRectangles = []
+let bigRectangles = []; // Array to store big rectangle objects
 
 function mapToColorIndex(freqValue) {
+  // Map the frequency value to an index for the color array
   return Math.floor(map(freqValue, 0, 255, 0, colors.length - 1));
 }
 
@@ -46,22 +47,20 @@ let dd = '#A53A32';
 let bb = '#39468C';
 let gg = '#D8D6C7';
 
-let song;
-let fft;
-let numBins = 128;
-let smoothing = 0.8;
-let button; 
-let buttonLabel = 'Night'
-let isButtonPressed = false;
+let song; // Sound object
+let fft; // FFT object
+let numBins = 128; // Number of frequency bins for the FFT analysis
+let smoothing = 0.8; // Smoothing for the FFT analysis
+let button; // Button object
+let buttonLabel = 'Night'; // Label for the button
+let isButtonPressed = false; // Initial state for button press
 
+// Array of colors, more can be added as needed
+let colors = ['#0388A6', '#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530', '#401019', '#D99962', '#04ADBF'];
 
-// 颜色数组，可以根据需要添加更多颜色
-let colors =['#0388A6','#EBCF14', '#A53A32', '#39468C', '#D8D6C7', '#F20530','#401019','#D99962', '#04ADBF' ];
-
-
-// Load sound file before setup() function runs
+// Load sound file before the setup() function runs
 function preload() {
-  song = loadSound("assets/meditation_guitar.wav");
+  song = loadSound("assets/489851__prime45__boogie-woogie.wav");
 }
 
 // The setup function to initialize the canvas and create rectangle objects
@@ -72,9 +71,11 @@ function setup() {
   fft = new p5.FFT(smoothing, numBins);
   song.connect(fft);
 
+  // Create and position the button
   button = createButton(buttonLabel);
-  button.position(width, height/2);
+  button.position(width / 2, height / 2);
   button.mousePressed(togglePlaying);
+}
 
   
   //————————————————————BIG RECT SECTION——————————————————
@@ -121,7 +122,6 @@ function setup() {
   // Resize all big rectangles to fit the current canvas size
   bigRectangles.forEach(rectangle => rectangle.resize(canvasSize));
 
-}
 
   
   //————————————————————LINES AND ROWS——————————————————
@@ -414,7 +414,7 @@ function drawColumn(x, y, w, h, colors) {
       button.html("Night");
       resetBigRectangles(); // 重置 bigRectangles 的状态
     } else {
-      song.play(); // 播放音乐
+      song.loop(); // 播放音乐
       isButtonPressed = true;
       button.html("Day");
     }
